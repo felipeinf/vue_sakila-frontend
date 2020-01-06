@@ -9,6 +9,11 @@ const routes = [
     name: 'control-panel',
     component: () => import(/* webpackChunkName: "about" */ '@/Admin/views/ControlPanel.vue'),
   },
+  {
+    path: '/add',
+    name: 'new-employe',
+    component: () => import(/* webpackChunkName: "about" */ '@/Admin/views/NewEmployee.vue'),
+  },
 ];
 
 const router = new VueRouter({
