@@ -66,14 +66,15 @@
               <button class="btn btn-sm btn-info btn-block mb-2"
                 v-bind:class="{disabled : ! selectedEmployee}"
               >Employee details</button>
-              <button class="btn btn-sm btn-success btn-block mb-2">
-                <router-link to="add" class="text-decoration-none text-white">
-                  Add Employee
-                </router-link>
-              </button>
+
+              <router-link to="add"
+                class="btn btn-sm btn-success btn-block mb-2">Add Employee
+              </router-link>
+
               <button class="btn btn-sm btn-warning btn-block mb-2"
                 v-bind:class="{disabled : ! selectedEmployee}"
               >Edit Employee</button>
+
               <button class="btn btn-sm btn-danger btn-block mb-2"
                 v-bind:class="{disabled : ! selectedEmployee}"
                 v-on:click="d()"
