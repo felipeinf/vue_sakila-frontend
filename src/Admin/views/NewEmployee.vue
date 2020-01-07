@@ -121,6 +121,29 @@
 </template>
 
 <script>
+import adminService from '@/services/admin.service';
+
+export default {
+  name: 'new-employee',
+
+  components: {
+  },
+
+  data() {
+    return {
+    };
+  },
+
+  created() {
+  },
+
+  async mounted() {    
+  },
+
+  methods: {
+    
+  },
+};
 
 /* {
   "staff_id": 16,
@@ -141,41 +164,4 @@
   "last_update": "2020-01-04T21:00:01.000Z"
 }
 */
-// @ is an alias to /src
-import axios from '@/lib/axios';
-
-export default {
-  name: 'new-employee',
-  components: {
-  },
-
-  data() {
-    return {
-      staff: null,
-      selectedEmployee: null,
-    };
-  },
-
-  created() {
-  },
-
-  async mounted() {
-    const { data } = await this.readStaff();
-    this.staff = data.body;
-    this.staff.forEach(item => console.log(item));
-  },
-
-  methods: {
-    readStaff() {
-      return axios.get('staff');
-    },
-    selectEmployee(employee) {
-      this.selectedEmployee = employee;
-      console.log(this.selectedEmployee);
-    },
-    d() {
-      console.log('hola mundo');
-    },
-  },
-};
 </script>

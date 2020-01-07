@@ -54,6 +54,8 @@
       </div>
     </div>
   </div>
+
+      
 </div>
 
         <div class="col col-lg-3">
@@ -67,7 +69,7 @@
                 v-bind:class="{disabled : ! selectedEmployee}"
               >Employee details</button>
 
-              <router-link to="add"
+              <router-link :to="'add/' + 1" 
                 class="btn btn-sm btn-success btn-block mb-2">Add Employee
               </router-link>
 
@@ -77,7 +79,6 @@
 
               <button class="btn btn-sm btn-danger btn-block mb-2"
                 v-bind:class="{disabled : ! selectedEmployee}"
-                v-on:click="d()"
               >Delete Employee</button>
             </div>
           </div>
@@ -111,7 +112,7 @@
 }
 */
 // @ is an alias to /src
-import axios from '@/lib/axios';
+import adminService from '@/services/admin.service';
 
 export default {
   name: 'control-panel',
@@ -126,24 +127,21 @@ export default {
   },
 
   created() {
+    
   },
 
   async mounted() {
-    const { data } = await this.readStaff();
-    this.staff = data.body;
-    this.staff.forEach(item => console.log(item));
+    this.staff = await this.getStaff();
+    this.staff.forEach(item => console.log({...item}));
   },
 
   methods: {
-    readStaff() {
-      return axios.get('staff');
+    getStaff() {
+      return adminService.getStaff();
     },
+
     selectEmployee(employee) {
       this.selectedEmployee = employee;
-      console.log(this.selectedEmployee);
-    },
-    d() {
-      console.log('hola mundo');
     },
   },
 };

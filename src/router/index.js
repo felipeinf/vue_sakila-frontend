@@ -10,8 +10,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '@/Admin/views/ControlPanel.vue'),
   },
   {
-    path: '/add',
+    path: '/add/:id',
     name: 'new-employe',
+    props: true,
     component: () => import(/* webpackChunkName: "about" */ '@/Admin/views/NewEmployee.vue'),
   },
 ];
