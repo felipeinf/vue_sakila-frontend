@@ -142,9 +142,13 @@ export default {
   },
 
   methods: {
+    setDeleteModal(action){
+      $('#deleteModal').modal(action);
+    },
+
     showDeleteModal: function(event){
       this.selectedStaffMember == null ? 
-        event.stopPropagation() : $('#deleteModal').modal('show');
+        event.stopPropagation() : this.setDeleteModal('show');
     },
 
     selectEmployee(staffMember) {
@@ -159,6 +163,7 @@ export default {
         
         if(staffMember.staff_id == staffMember.staff_id){
           this.staff.pop();
+          this.setDeleteModal('hide');
         }
       }
 
