@@ -76,7 +76,7 @@
 
                   <div class="input-group">
                     <input type="text" aria-label="Stree name" class="form-control" placeholder="Stree name">
-                    <input type="number" aria-label="Stree number" class="form-control" placeholder="Stree number">
+                    <input type="number" min="1" aria-label="Stree number" class="form-control" placeholder="Stree number">
                   </div>
 
                 </div><!--col-4-->
