@@ -4,7 +4,7 @@
     <div class="container">
       <div class="row mt-5">
 
-        <div class="col-10">
+        <div class="col-12 col-lg-10 mb-2">
           <div class="card float-color">
             <div class="card-header">
               <h5 class="text-white mb-0 text-center">New employee</h5>
@@ -13,45 +13,19 @@
 
               <div class="row">
 
-                <div class="col-12">
+                <div class="col-12 col-lg-12">
                   <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">First and last name</span>
-                    </div>
-                    <input type="text" aria-label="First name" class="form-control">
-                    <input type="text" aria-label="Last name" class="form-control">
+                    <input type="text" aria-label="First name" class="form-control" placeholder="First name">
+                    <input type="text" aria-label="Last name" class="form-control" placeholder="Last name">
                   </div>
                 </div>
 
-                <div class="col-8">
+                <div class="col-12 col-lg-8">
 
                   <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Recipient's username"
-                      aria-label="Recipient's username" aria-describedby="basic-addon2"
+                    <input type="text" class="form-control" placeholder="email@example.com"
+                      aria-label="email@example.com" aria-describedby="basic-addon2"
                     >
-                    <div class="input-group-append">
-                      <span class="input-group-text" id="basic-addon2">@example.com</span>
-                    </div>
-                  </div>
-
-                  <label for="basic-url">Your vanity URL</label>
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
-                    </div>
-                    <input type="text" class="form-control" id="basic-url"
-                      aria-describedby="basic-addon3"
-                    >
-                  </div>
-
-                  <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <span class="input-group-text">$</span>
-                    </div>
-                    <input type="text" class="form-control" aria-label="Amount">
-                    <div class="input-group-append">
-                      <span class="input-group-text">.00</span>
-                    </div>
                   </div>
 
                   <div class="input-group mb-3">
@@ -69,9 +43,13 @@
                     >
                   </div>
 
+                  <div class="custom-control custom-checkbox mb-3">
+                    <input type="checkbox" class="custom-control-input" id="customCheck1">
+                    <label class="custom-control-label text-light" for="customCheck1">Active Employee</label>
+                  </div>
                 </div><!--col-8-->
 
-                <div class="col-4">
+                <div class="col-12 col-lg-4">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <label class="input-group-text" for="inputGroupSelect01">Country</label>
@@ -86,7 +64,7 @@
 
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <label class="input-group-text" for="inputGroupSelect02">Ciudad</label>
+                      <label class="input-group-text" for="inputGroupSelect02">City</label>
                     </div>
                     <select class="custom-select" id="inputGroupSelect02">
                       <option selected>Choose...</option>
@@ -96,14 +74,9 @@
                     </select>
                   </div>
 
-                  <div class="input-group flex-nowrap mb-3">
-                    <input type="text" class="form-control" placeholder="Stree name"
-                    aria-label="Stree name" aria-describedby="addon-wrapping">
-                  </div>
-
-                  <div class="input-group flex-nowrap mb-3">
-                    <input type="number" class="form-control" placeholder="Stree number"
-                    aria-label="Stree number" aria-describedby="addon-wrapping">
+                  <div class="input-group">
+                    <input type="text" aria-label="Stree name" class="form-control" placeholder="Stree name">
+                    <input type="number" aria-label="Stree number" class="form-control" placeholder="Stree number">
                   </div>
 
                 </div><!--col-4-->
@@ -114,6 +87,14 @@
           </div>
         </div><!--col-10-->
 
+        <div class="col-12 col-lg-2">
+          <div class="card float-color p-0">
+            <div class="card-body">
+              <button class="btn btn-sm btn-success btn-block mb-2">Add</button>
+              <router-link to="/" class="btn btn-sm btn-warning btn-block mb-2">Cancel</router-link>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
