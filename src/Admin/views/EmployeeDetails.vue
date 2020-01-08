@@ -3,7 +3,7 @@
     <div class="row mt-5">
 
       <div class="col-10">
-        <div class="card float-color">
+        <div v-if="employee" class="card float-color">
           <div class="card-header">
             <h5 class="text-white mb-0 text-center">Employee Details</h5>
           </div>
@@ -89,7 +89,7 @@ export default {
 
   data() {
     return {
-      employee: {},
+      employee: null,
       adminService: AdminService
     }
   },
