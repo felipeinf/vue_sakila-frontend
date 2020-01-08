@@ -30,8 +30,8 @@
                       <th scope="row">{{employee.staff_id}}</th>
                       <td>{{employee.first_name + ' ' + employee.last_name}}</td>
                       <td>
-                        <span v-if="employee.active">Activo</span>
-                        <span v-else>Inactivo</span>
+                        <span v-if="employee.active">Active</span>
+                        <span v-else>Unactive</span>
                       </td>
                       <td>{{employee.email}}</td>
                     </tr>
@@ -82,22 +82,31 @@
               <p v-else class="text-white text-center mb-0">Options</p>
             </div>
             <div class="card-body">
-              <button class="btn btn-sm btn-info btn-block mb-2"
+              <button class="btn btn-sm btn-info btn-block mb-2" 
                 v-bind:class="{disabled : ! selectedStaffMember}"
-              >Employee details</button>
+                v-on:click="viewDetailsEmployee()"
+              >
+                Employee Details
+              </button>
 
               <router-link class="btn btn-sm btn-success btn-block mb-2"
                 to="add" 
-              >Add Employee</router-link>
+              >
+                Add Employee
+              </router-link>
 
               <button class="btn btn-sm btn-warning btn-block mb-2"
                 v-bind:class="{disabled : ! selectedStaffMember}"
-              >Edit Employee</button>
+              >
+                Edit Employee
+              </button>
 
               <button class="btn btn-sm btn-danger btn-block mb-2"
                 v-bind:class="{disabled : ! selectedStaffMember}"
                 v-on:click="showDeleteModal"
-              >Delete Employee</button>
+              >
+                Delete Employee
+              </button>
             </div>
           </div>
         </div>
@@ -124,23 +133,18 @@ export default {
     };
   },
 
-  created() {
+  async created() {
+    this.staff = await this.adminService.getStaff();
     
   },
 
-  async mounted() {
-    this.staff = await this.getStaff();
-    this.staff.forEach(item => console.log({...item}));
+  mounted() {
   },
 
   methods: {
     showDeleteModal: function(event){
       this.selectedStaffMember == null ? 
         event.stopPropagation() : $('#deleteModal').modal('show');
-    },
-
-    getStaff() {
-      return this.adminService.getStaff();
     },
 
     selectEmployee(staffMember) {
@@ -159,6 +163,12 @@ export default {
       }
 
       return staffMemberDeleted;
+    },
+
+    viewDetailsEmployee(){
+      if(this.selectedStaffMember != null){
+        this.$router.push({ path: `employee/${this.selectedStaffMember.staff_id}`});
+      }
     }
   },
 };

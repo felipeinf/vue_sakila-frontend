@@ -15,6 +15,12 @@ const routes = [
     props: true,
     component: () => import(/* webpackChunkName: "about" */ '@/Admin/views/NewEmployee.vue'),
   },
+  {
+    path: '/employee/:id',
+    name: 'employee-details',
+    props: true,
+    component: () => import("@/Admin/views/EmployeeDetails.vue")
+  }
 ];
 
 const router = new VueRouter({
