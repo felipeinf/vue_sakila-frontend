@@ -162,7 +162,7 @@ export default {
         const staffMember = this.staff[i];
         
         if(staffMember.staff_id == staffMember.staff_id){
-          this.staff.pop();
+          this.staff.splice(i, 1);
           this.setDeleteModal('hide');
         }
       }
