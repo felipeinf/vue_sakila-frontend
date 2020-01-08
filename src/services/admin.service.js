@@ -18,7 +18,7 @@ class AdminService {
   async getStaffMemberById(staffId){
     if(this._staff.length === 0){
       try {
-        const { data } = await axios(`/staff/${staffId}`);
+        const { data } = await axios.get(`/staff/${staffId}`);
         return data.body
           .shift();
       } 
@@ -30,6 +30,16 @@ class AdminService {
       return this._staff
         .filter(employee => employee.staff_id == staffId)
         .shift();
+    }
+  }
+
+  async deleteStaffMemberById(staffId){
+    try {
+      const { data } = await axios.delete(`/staff/${staffId}`);
+      return data.body;
+    } 
+    catch (error) {
+      console.error(error);
     }
   }
 

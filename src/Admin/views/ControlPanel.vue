@@ -25,7 +25,7 @@
 
                     <tr v-for="employee in staff" :key="employee.staff_id"
                       v-on:click="selectEmployee(employee)"
-                      v-bind:class="{ 'bg-primary': selectedEmployee == employee }"
+                      v-bind:class="{ 'bg-primary': selectedStaffMember == employee }"
                     >
                       <th scope="row">{{employee.staff_id}}</th>
                       <td>{{employee.first_name + ' ' + employee.last_name}}</td>
@@ -44,41 +44,59 @@
           </div>
         </div>
 
-<div class="modal fade bd-example-modal-sm" tabindex="-1"
-  role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true"
->
-  <div class="modal-dialog modal-sm" role="document">
-    <div class="modal-content p-0">
-      <div class="alert alert-dark mb-0" role="alert">
-        A simple dark alert—check it out!
-      </div>
-    </div>
-  </div>
-
-      
-</div>
+        <!--delete modal-->
+        <div v-if="selectedStaffMember" class="modal fade" id="deleteModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content bg-dark">
+              <div class="modal-header bg-dark">
+                <h5 class="modal-title text-light" id="staticBackdropLabel">Delete employee</h5>
+                <button type="button" class="close text-light" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body divider-color p-0">
+                <div class="row">
+                  <div class="col text-center">
+                    <p class="m-4"> 
+                      Are you sure you want to
+                      <strong>remove {{`${selectedStaffMember.first_name} ${selectedStaffMember.last_name}`}}</strong>
+                      from the staff?
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger"
+                  v-on:click="deleteSelectedStaffMember()"
+                >Confirm</button>
+                <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div><!--delete modal-->
 
         <div class="col col-lg-3">
           <div class="card float-color p-0">
             <div class="card-header bg-dark">
-              <p v-if="!selectedEmployee" class="text-white text-center mb-0">Select an employee</p>
+              <p v-if="!selectedStaffMember" class="text-white text-center mb-0">Select an employee</p>
               <p v-else class="text-white text-center mb-0">Options</p>
             </div>
             <div class="card-body">
               <button class="btn btn-sm btn-info btn-block mb-2"
-                v-bind:class="{disabled : ! selectedEmployee}"
+                v-bind:class="{disabled : ! selectedStaffMember}"
               >Employee details</button>
 
-              <router-link :to="'add/' + 1" 
-                class="btn btn-sm btn-success btn-block mb-2">Add Employee
-              </router-link>
+              <router-link class="btn btn-sm btn-success btn-block mb-2"
+                to="add" 
+              >Add Employee</router-link>
 
               <button class="btn btn-sm btn-warning btn-block mb-2"
-                v-bind:class="{disabled : ! selectedEmployee}"
+                v-bind:class="{disabled : ! selectedStaffMember}"
               >Edit Employee</button>
 
               <button class="btn btn-sm btn-danger btn-block mb-2"
-                v-bind:class="{disabled : ! selectedEmployee}"
+                v-bind:class="{disabled : ! selectedStaffMember}"
+                v-on:click="showDeleteModal"
               >Delete Employee</button>
             </div>
           </div>
@@ -91,28 +109,7 @@
 </template>
 
 <script>
-
-/* {
-  "staff_id": 16,
-  "first_name": "Hector",
-  "last_name": "Gutierrez",
-  "address": {
-    "address_id": 182,
-    "address": "1891 Rizhao Boulevard",
-    "city": "Santa Brbara dOeste",
-    "country": "Brazil"
-  },
-  "picture": null,
-  "email": "guti@gmail.com",
-  "store": 1,
-  "active": 1,
-  "username": "guti69",
-  "password": "Soyguti299",
-  "last_update": "2020-01-04T21:00:01.000Z"
-}
-*/
-// @ is an alias to /src
-import adminService from '@/services/admin.service';
+import AdminService from '../../services/admin.service';
 
 export default {
   name: 'control-panel',
@@ -121,8 +118,9 @@ export default {
 
   data() {
     return {
-      staff: null,
-      selectedEmployee: null,
+      staff: [],
+      selectedStaffMember: null,
+      adminService: AdminService,
     };
   },
 
@@ -136,13 +134,32 @@ export default {
   },
 
   methods: {
-    getStaff() {
-      return adminService.getStaff();
+    showDeleteModal: function(event){
+      this.selectedStaffMember == null ? 
+        event.stopPropagation() : $('#deleteModal').modal('show');
     },
 
-    selectEmployee(employee) {
-      this.selectedEmployee = employee;
+    getStaff() {
+      return this.adminService.getStaff();
     },
+
+    selectEmployee(staffMember) {
+      this.selectedStaffMember = staffMember;
+    },
+
+    async deleteSelectedStaffMember(){
+      const staffMemberDeleted = await this.adminService.deleteStaffMemberById(this.selectedStaffMember.staff_id);
+      
+      for (let i = 0; i < this.staff.length; i++) {
+        const staffMember = this.staff[i];
+        
+        if(staffMember.staff_id == staffMember.staff_id){
+          this.staff.pop();
+        }
+      }
+
+      return staffMemberDeleted;
+    }
   },
 };
 </script>
